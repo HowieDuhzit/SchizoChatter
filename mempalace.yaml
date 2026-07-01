@@ -1,0 +1,18 @@
+wing: schizochatter
+rooms:
+- name: images
+  description: Files from images/
+- name: backend
+  description: Files from server/
+- name: src
+  description: Files from src/
+- name: public
+  description: Files from public/
+- name: schizodio_1
+  description: Files from Schizodio 1/
+- name: schizodio_2
+  description: Files from Schizodio 2/
+- name: layers
+  description: Files from Layers/
+- name: general
+  description: Files that don't fit other rooms

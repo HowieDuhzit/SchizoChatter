@@ -69,6 +69,20 @@ const FALLBACK_PERSONA_STEMS = [
   'Supermarket loyalty cards are secret citizen tiers'
 ];
 
+function stripReplyPrefixes(text = '') {
+  const trimmed = text.trim();
+  if (!trimmed) return trimmed;
+
+  let sanitized = trimmed;
+  let prefixMatch = sanitized.match(/^Re:\s*[^,]+(?:,\s*|\s+)/i);
+  while (prefixMatch) {
+    sanitized = sanitized.slice(prefixMatch[0].length).trim();
+    prefixMatch = sanitized.match(/^Re:\s*[^,]+(?:,\s*|\s+)/i);
+  }
+
+  return sanitized || trimmed;
+}
+
 const LAYERS = ['Body', 'Eyes', 'Mouth', 'Eyebrows', 'Clothing', 'Hair', 'Headwear', 'Mask'];
 const OPTIONAL_LAYERS = new Set(['Mask', 'Headwear']);
 const OPTIONAL_SKIP_PROB = 0.45;
@@ -103,6 +117,52 @@ let loopHandle = null;
 
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true, hasOpenRouterKey: Boolean(OPENROUTER_API_KEY) });
+});
+
+app.get('/api/layers', (_req, res) => {
+  res.json(layerAssets);
+});
+
+function normalizeMetadataUri(uri = '') {
+  const value = String(uri || '').trim();
+  if (!value) return '';
+  if (value.startsWith('ipfs://')) {
+    const cidPath = value.slice('ipfs://'.length).replace(/^ipfs\//, '');
+    return `https://ipfs.io/ipfs/${cidPath}`;
+  }
+  return value;
+}
+
+app.get('/api/metadata', async (req, res) => {
+  try {
+    const rawUri = req.query.uri;
+    const uri = normalizeMetadataUri(rawUri);
+    if (!uri) {
+      res.status(400).json({ error: 'Missing uri query parameter' });
+      return;
+    }
+    if (!/^https?:\/\//i.test(uri)) {
+      res.status(400).json({ error: 'Only http(s) metadata URIs are supported' });
+      return;
+    }
+
+    const response = await fetch(uri, {
+      headers: {
+        Accept: 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      res.status(response.status).json({ error: `Metadata fetch failed (${response.status})`, body: text.slice(0, 220) });
+      return;
+    }
+
+    const payload = await response.json();
+    res.json(payload);
+  } catch (error) {
+    res.status(500).json({ error: error.message || 'Metadata proxy failed' });
+  }
 });
 
 app.post('/api/scene/reroll', (_req, res) => {

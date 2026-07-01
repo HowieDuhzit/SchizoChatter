@@ -181,6 +181,25 @@ body {
   object-fit: cover;
 }
 
+.layer-mask {
+  opacity: 0.78;
+}
+
+.avatar-layer-missing {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: rgba(255, 255, 255, 0.75);
+  border: 1px dashed rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  padding: 0.5rem 0.7rem;
+  background: rgba(0, 0, 0, 0.4);
+}
+
 .chat-column {
   display: flex;
   align-items: stretch;
@@ -246,7 +265,7 @@ body {
 }
 
 .chat-stream {
-  margin: 1rem 0;
+  margin: 0.75rem 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -314,6 +333,152 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.wallet-panel {
+  margin-top: 0.75rem;
+  margin-bottom: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: rgba(6, 6, 9, 0.56);
+  padding: 0.65rem;
+}
+
+.wallet-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.wallet-summary {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.wallet-error {
+  margin: 0.45rem 0 0;
+  color: #ff9f76;
+  font-size: 0.75rem;
+}
+
+.wallet-token-list {
+  margin-top: 0.55rem;
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-right: 0.1rem;
+}
+
+.wallet-token {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(8, 8, 12, 0.7);
+  padding: 0.5rem;
+}
+
+.wallet-token-main {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.wallet-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.wallet-thumb.empty {
+  display: inline-block;
+}
+
+.wallet-token-copy {
+  min-width: 0;
+}
+
+.wallet-token-name {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.wallet-token-mint {
+  margin: 0.2rem 0 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 280px;
+}
+
+.wallet-token-meta-error {
+  margin: 0.22rem 0 0;
+  font-size: 0.62rem;
+  color: rgba(255, 159, 118, 0.95);
+  letter-spacing: 0.05em;
+}
+
+.wallet-token-actions {
+  margin-top: 0.45rem;
+  display: flex;
+  gap: 0.45rem;
+}
+
+.wallet-debug-lines {
+  margin-top: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.wallet-debug-line {
+  margin: 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.wallet-debug-line.ok {
+  color: rgba(110, 255, 190, 0.85);
+}
+
+.wallet-debug-line.miss {
+  color: rgba(255, 185, 126, 0.9);
+}
+
+.wallet-side-btn {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.wallet-side-btn.active {
+  border-color: rgba(255, 190, 94, 0.7);
+  background: rgba(255, 190, 94, 0.22);
+  color: #ffe2bb;
 }
 
 .btn.debate {
